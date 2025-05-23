@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>¡Feliz Cumpleaños, Mi Amor!</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #ff6b6b, #d88cff);
+      overflow: hidden;
+      touch-action: manipulation;
+    }
+    .container {
+      text-align: center;
+      color: white;
+      position: relative;
+      z-index: 1;
+      padding: 20px;
+      max-width: 90vw;
+    }
+    h1 {
+      font-size: min(6vw, 2.5rem); /* Limita el tamaño en pantallas grandes */
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      margin: 0 0 20px;
+    }
+    #message {
+      font-size: min(4vw, 1.5rem);
+      margin: 20px 0;
+      min-height: 60px;
+      line-height: 1.5;
+    }
+    #reveal-btn {
+      padding: 12px 24px;
+      font-size: min(4vw, 1.2rem);
+      background-color: #ff4d4d;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: transform 0.3s;
+      touch-action: manipulation;
+    }
+    #reveal-btn:hover {
+      transform: scale(1.1);
+    }
+    #hidden-message {
+      display: none;
+      margin-top: 20px;
+      font-size: min(3.5vw, 1.1rem);
+      background: rgba(255, 255, 255, 0.2);
+      padding: 15px;
+      border-radius: 10px;
+      line-height: 1.6;
+    }
+    .heart {
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background: #ff4d4d;
+      transform: rotate(-45deg);
+      animation: fall 3s linear infinite;
+      z-index: 0;
+    }
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background: #ff4d4d;
+      border-radius: 50%;
+    }
+    .heart::before {
+      top: -7.5px;
+      left: 0;
+    }
+    .heart::after {
+      left: 7.5px;
+      top: 0;
+    }
+    @keyframes fall {
+      0% {
+        transform: translateY(-100vh) rotate(-45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(-45deg);
+        opacity: 0;
+      }
+    }
+    /* Media Queries para móviles */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: min(8vw, 2rem);
+      }
+      #message {
+        font-size: min(5vw, 1.2rem);
+      }
+      #reveal-btn {
+        font-size: min(5vw, 1rem);
+        padding: 10px 20px;
+      }
+      #hidden-message {
+        font-size: min(4.5vw, 1rem);
+      }
+      .heart {
+        width: 10px;
+        height: 10px;
+      }
+      .heart::before,
+      .heart::after {
+        width: 10px;
+        height: 10px;
+      }
+      .heart::before {
+        top: -5px;
+      }
+      .heart::after {
+        left: 5px;
+      }
+    }
+    /* Media Queries para pantallas grandes */
+    @media (min-width: 1200px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+      #message {
+        font-size: 1.3rem;
+      }
+      #reveal-btn {
+        font-size: 1.1rem;
+      }
+      #hidden-message {
+        font-size: 1rem;
+      }
+    }
+	
+	 .photos {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 20px;
+		padding: 20px;
+	}
+	.photos img {
+		width: 200px;
+		height: 200px;
+		object-fit: cover;
+		border-radius: 10px;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		transition: transform 0.3s;
+	}
+	.photos img:hover {
+		transform: scale(1.1);
+	}
+	
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>¡Feliz Cumpleaños, Mi Amor! ❤️🎉</h1>
+	<div class="photos">
+		<img src="images/foto1.jpeg" alt="Foto 1">
+		<img src="images/foto2.jpeg" alt="Foto 2">
+		<!-- Añade más fotos -->
+    </div>
+    <div id="message"></div>
+    <button onclick="showSecretMessage()" id="reveal-btn">¡Una sorpresa más!</button>
+    <div id="hidden-message">Que nunca te falten razones para sonreír como solo tú sabes. ¡Feliz vuelta a sol, feliz cumpleaños!</div>
+  </div>
+
+	<script>
+        // Efecto de confeti (usa una librería simple)
+        function showSecretMessage() {
+			//document.getElementById('secretMessage').style.display = 'block';
+			
+			// Ocultar el botón
+			document.querySelector('button').style.display = 'none'; // ← Nueva línea
+			
+			// Activar confeti
+			if (typeof confetti === 'function') {
+				confetti({
+					particleCount: 100,
+					spread: 70,
+					origin: { y: 0.6 }
+				});
+			}
+		}
+
+        // Cambia el nombre si quieres
+        const urlParams = new URLSearchParams(window.location.search);
+        const name = urlParams.get('name');
+        if (name) {
+            document.getElementById('name').textContent = name;
+        }
+    </script>
+
+  <script>
+  
+	// Animación de escritura del mensaje
+	const messageElement = document.getElementById('message');
+	const fullMessage = "Hoy celebramos el día más especial del año porque naciste tú, mi amor.";
+	let i = 0;
+
+	function typeWriter() {
+	  if (i < fullMessage.length) {
+		messageElement.innerHTML += fullMessage.charAt(i);
+		i++;
+		setTimeout(typeWriter, 100);
+	  }
+	}
+	window.onload = typeWriter;
+
+	// Mostrar mensaje oculto al hacer clic
+	const revealBtn = document.getElementById('reveal-btn');
+	const hiddenMessage = document.getElementById('hidden-message');
+	revealBtn.addEventListener('click', () => {
+	  hiddenMessage.style.display = 'block';
+	  revealBtn.style.display = 'none';
+	});
+
+	// Crear corazones cayendo (menos en móviles)
+	function createHeart() {
+	  const heart = document.createElement('div');
+	  heart.className = 'heart';
+	  heart.style.left = Math.random() * 100 + 'vw';
+	  heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+	  document.body.appendChild(heart);
+	  setTimeout(() => heart.remove(), 5000);
+	}
+	const isMobile = window.innerWidth <= 600;
+	setInterval(createHeart, isMobile ? 500 : 300);
+  </script>
+  
+	<!-- Librería de confeti -->
+	<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  
+</body>
+</html>
